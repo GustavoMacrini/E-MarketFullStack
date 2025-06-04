@@ -1,0 +1,6 @@
+@E_Market.Server_HostAddress = http://localhost:5285
+
+GET {{E_Market.Server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
