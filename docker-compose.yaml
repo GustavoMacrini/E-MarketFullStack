@@ -1,0 +1,31 @@
+services:
+    emarket-server:
+        build: 
+            context: ./
+            dockerfile: ./E-Market.Server/Dockerfile
+        depends_on:
+            - db-sqlserver
+        ports:
+            - "8080:8080"
+        networks:
+            - private-network
+
+
+    db-sqlserver:
+        networks:
+            - private-network
+        image: mcr.microsoft.com/mssql/server:2022-preview-ubuntu-22.04
+        environment:
+            MSSQL_SA_PASSWORD: Sql2022@
+            ACCEPT_EULA: Y
+            APPLY_MIGRATIONS: true
+        container_name: db-sqlserver
+        ports:
+            - "1433:1433"
+       
+
+networks:
+    private-network:
+        driver: bridge
+    public-network:
+        driver: bridge
