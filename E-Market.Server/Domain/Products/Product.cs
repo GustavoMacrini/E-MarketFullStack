@@ -5,9 +5,10 @@
         public string Name { get; private set; }
         public Category Category { get; private set; }
         public string Description { get; private set; }
+        public decimal Price { get; set; }
         public bool HasStock { get; private set; }
         public bool Active { get; private set; } = true;
-        public decimal Price { get; set; }
+        
 
         public Product() { }
 
