@@ -1,34 +1,40 @@
 ﻿
-using E_Market.Server.Domain.Products;
-using E_Market.Server.Services.Data;
+using E_Market.Server.Domain.Categories;
+using E_Market.Server.Services.Categories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace E_Market.Server.Controllers
 {
 
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     [ApiController]
     public class CategoryController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
-        public CategoryController(ApplicationDbContext context) 
+
+        private CategoryService _categoryService;
+        public CategoryController(CategoryService categoryService)
         {
-            _context = context;
+            _categoryService = categoryService;
         }
 
         [HttpPost]
-        public async Task<IResult> CreateCategory(string name) 
+        public async Task<IResult> CreateCategory(CategoryRequest request) 
         {
-            Category category = new Category(name, "usuario1", "usuario1");
-            await _context.AddAsync(category);
-            await _context.SaveChangesAsync();
-            return Results.Created();
+            try
+            {
+                CategoryResponse response = await _categoryService.CreateCategoryAsync(request);
+                return Results.Created($"api/v1/category/{response.Id}", response);
+            }catch(Exception e)
+            {
+                return Results.BadRequest(e.Message);
+            }
         }
 
         [HttpGet]
-        public string Get()
+        public async Task<IResult> Get()
         {
-            return "teste";
+            List<CategoryResponse> categories = await _categoryService.GetAllCategoriesAsync();
+            return Results.Ok(categories);
         }
     }
 }

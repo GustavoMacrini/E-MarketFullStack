@@ -1,4 +1,6 @@
-﻿namespace E_Market.Server.Domain.Products
+﻿using E_Market.Server.Domain.Categories;
+
+namespace E_Market.Server.Domain.Products
 {
     public class Product : Entity
     {
