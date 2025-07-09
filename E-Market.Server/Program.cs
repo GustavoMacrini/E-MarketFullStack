@@ -1,5 +1,6 @@
 using E_Market.Server.Services.Categories;
 using E_Market.Server.Services.Data;
+using E_Market.Server.Services.Products;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +15,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<CategoryService>();
+builder.Services.AddScoped<ProductService>();
 
 var app = builder.Build();
 

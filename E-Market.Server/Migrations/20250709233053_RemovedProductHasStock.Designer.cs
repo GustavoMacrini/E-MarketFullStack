@@ -4,6 +4,7 @@ using E_Market.Server.Services.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace E_Market.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250709233053_RemovedProductHasStock")]
+    partial class RemovedProductHasStock
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -113,6 +116,9 @@ namespace E_Market.Server.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("OrderId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
@@ -120,22 +126,9 @@ namespace E_Market.Server.Migrations
 
                     b.HasIndex("CategoryId");
 
+                    b.HasIndex("OrderId");
+
                     b.ToTable("Products");
-                });
-
-            modelBuilder.Entity("OrderProduct", b =>
-                {
-                    b.Property<Guid>("OrdersId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("ProductsId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("OrdersId", "ProductsId");
-
-                    b.HasIndex("ProductsId");
-
-                    b.ToTable("OrderProduct");
                 });
 
             modelBuilder.Entity("E_Market.Server.Domain.Products.Product", b =>
@@ -146,22 +139,16 @@ namespace E_Market.Server.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("E_Market.Server.Domain.Orders.Order", null)
+                        .WithMany("Products")
+                        .HasForeignKey("OrderId");
+
                     b.Navigation("Category");
                 });
 
-            modelBuilder.Entity("OrderProduct", b =>
+            modelBuilder.Entity("E_Market.Server.Domain.Orders.Order", b =>
                 {
-                    b.HasOne("E_Market.Server.Domain.Orders.Order", null)
-                        .WithMany()
-                        .HasForeignKey("OrdersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("E_Market.Server.Domain.Products.Product", null)
-                        .WithMany()
-                        .HasForeignKey("ProductsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Products");
                 });
 #pragma warning restore 612, 618
         }
