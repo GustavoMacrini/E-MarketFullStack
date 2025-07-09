@@ -1,6 +1,5 @@
 using E_Market.Server.Services.Categories;
 using E_Market.Server.Services.Data;
-using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 

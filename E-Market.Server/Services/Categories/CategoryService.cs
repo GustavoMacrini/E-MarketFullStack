@@ -37,6 +37,17 @@ namespace E_Market.Server.Services.Categories
             return response;
         }
 
+        public async Task<CategoryResponse> GetCategoryAsync(Guid id)
+        {
+            Category category = await _context.Categories.FirstOrDefaultAsync(c => c.Id == id);
+            if (category == null) 
+            {
+                throw new Exception($"Category {id} not found.");
+            }
+
+            return new CategoryResponse(category.Id, category.Name);
+        }
+
 
 
     }

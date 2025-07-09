@@ -30,11 +30,24 @@ namespace E_Market.Server.Controllers
             }
         }
 
-        [HttpGet]
-        public async Task<IResult> Get()
+        [HttpGet()]
+        public async Task<IResult> Get([FromQuery] Guid? id = null)
         {
-            List<CategoryResponse> categories = await _categoryService.GetAllCategoriesAsync();
-            return Results.Ok(categories);
+            if (id == null)
+            {
+                List<CategoryResponse> categories = await _categoryService.GetAllCategoriesAsync();
+                return Results.Ok(categories);
+            }
+
+            try
+            {
+                CategoryResponse category = await _categoryService.GetCategoryAsync(id.Value);
+                return Results.Ok(category);
+            }
+            catch (Exception e)
+            {
+                return Results.NotFound(e.Message);
+            }
         }
     }
 }
