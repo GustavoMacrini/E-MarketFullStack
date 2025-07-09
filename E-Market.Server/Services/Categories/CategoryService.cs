@@ -48,6 +48,19 @@ namespace E_Market.Server.Services.Categories
             return new CategoryResponse(category.Id, category.Name);
         }
 
+        public async Task DeleteCategory(Guid id)
+        {
+            Category category = await _context.Categories.FirstOrDefaultAsync(c => c.Id == id);
+
+            if(category == null)
+            {
+                throw new Exception($"Category {id} not found.");
+            }
+
+            _context.Categories.Remove(category);
+            _context.SaveChanges();
+        }
+
 
 
     }

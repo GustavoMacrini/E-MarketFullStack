@@ -18,20 +18,20 @@ namespace E_Market.Server.Controllers
         }
 
         [HttpPost]
-        public async Task<IResult> CreateCategory(CategoryRequest request) 
+        public async Task<IResult> CreateCategory(CategoryRequest request)
         {
             try
             {
                 CategoryResponse response = await _categoryService.CreateCategoryAsync(request);
                 return Results.Created($"api/v1/category/{response.Id}", response);
-            }catch(Exception e)
+            } catch (Exception e)
             {
                 return Results.BadRequest(e.Message);
             }
         }
 
-        [HttpGet()]
-        public async Task<IResult> Get([FromQuery] Guid? id = null)
+        [HttpGet("{id:guid}")]
+        public async Task<IResult> GetCategoryFromId([FromRoute] Guid id)
         {
             if (id == null)
             {
@@ -41,7 +41,7 @@ namespace E_Market.Server.Controllers
 
             try
             {
-                CategoryResponse category = await _categoryService.GetCategoryAsync(id.Value);
+                CategoryResponse category = await _categoryService.GetCategoryAsync(id);
                 return Results.Ok(category);
             }
             catch (Exception e)
@@ -49,5 +49,28 @@ namespace E_Market.Server.Controllers
                 return Results.NotFound(e.Message);
             }
         }
+
+        [HttpGet()]
+        public async Task<IResult> GetCategories()
+        {
+            List<CategoryResponse> categories = await _categoryService.GetAllCategoriesAsync();
+            return Results.Ok(categories);
+        }
+
+        [HttpDelete("{id:guid}")]
+        public async Task<IResult> DeleteCategory([FromRoute] Guid id)
+        {
+            try
+            {
+                await _categoryService.DeleteCategory(id);
+                return Results.Ok();
+            }
+            catch(Exception e)
+            {
+                return Results.NotFound(e.Message);
+            }
+        }
+
+
     }
 }
