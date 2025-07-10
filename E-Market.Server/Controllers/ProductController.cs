@@ -28,5 +28,42 @@ namespace E_Market.Server.Controllers
                 return Results.BadRequest(e.Message);
             }
         }
+
+        [HttpGet()]
+        public async Task<IResult> GetProductsAsync()
+        {
+            List<ProductResponse> response =  await _productService.GetAllProductsAsync();
+            return Results.Ok(response);
+        }
+
+        [HttpGet("{id:guid}")]
+        public async Task<IResult> GetProductByIdAsync([FromRoute]Guid id)
+        {
+            try
+            {
+                ProductResponse response = await _productService.GetProductByIdAsync(id);
+                return Results.Ok(response);
+            }
+            catch (Exception e)
+            { 
+                return Results.NotFound(e.Message);
+            }
+        }
+
+        [HttpPut("{id:guid}")]
+        public async Task<IResult> updateProductAsync([FromRoute] Guid id, ProductRequest request)
+        {
+            try
+            {
+                ProductResponse response = await _productService.UpdateProductById(id, request);
+                return Results.Ok(response);
+            }
+            catch (Exception e)
+            {
+                return Results.BadRequest(e.Message);
+            }
+        }
+
+
     }
 }

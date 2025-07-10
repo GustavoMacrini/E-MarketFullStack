@@ -1,5 +1,6 @@
 ﻿using E_Market.Server.Domain.Categories;
 using E_Market.Server.Domain.Orders;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace E_Market.Server.Domain.Products
 {
@@ -26,6 +27,19 @@ namespace E_Market.Server.Domain.Products
             EditedBy = createdBy;
             CreatedOn = DateTime.Now;
             EditedOn = DateTime.Now;
+        }
+
+        public void EditValues(string name, Category category, string description, decimal price, string editedBy)
+        {
+            Name = name;
+            Category = category;
+            Description = description;
+            Price = price;
+
+            EditedBy = editedBy;
+            CreatedOn = DateTime.Now;
+            EditedOn = DateTime.Now;
+
         }
     }
 }

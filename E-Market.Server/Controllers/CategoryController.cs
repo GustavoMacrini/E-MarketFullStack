@@ -31,7 +31,7 @@ namespace E_Market.Server.Controllers
         }
 
         [HttpGet("{id:guid}")]
-        public async Task<IResult> GetCategoryFromId([FromRoute] Guid id)
+        public async Task<IResult> GetCategoryById([FromRoute] Guid id)
         {
             if (id == null)
             {
