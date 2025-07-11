@@ -1,6 +1,5 @@
 ﻿using E_Market.Server.Domain.Categories;
 using E_Market.Server.Domain.Products;
-using E_Market.Server.Services.Categories;
 using E_Market.Server.Services.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,7 +16,7 @@ namespace E_Market.Server.Services.Products
 
         public async Task<ProductResponse> CreateProductAsync(ProductRequest request)
         {
-            Category category = await _context.Categories.FirstOrDefaultAsync(c => c.Id == request.CategoryId);
+            Category category = await _context.Categories.Where(c => c.Id == request.CategoryId).FirstOrDefaultAsync();
             if (category == null) 
             {
                 throw new Exception($"Category {request.CategoryId} not found.");
@@ -39,7 +38,7 @@ namespace E_Market.Server.Services.Products
 
         public async Task<ProductResponse> GetProductByIdAsync(Guid id)
         {
-            Product product = await _context.Products.FirstOrDefaultAsync(p => p.Id == id);
+            Product product = await _context.Products.Where(p => p.Id == id).FirstOrDefaultAsync();
             if (product == null)
             {
                 throw new Exception($"Product {id} not found.");
@@ -50,7 +49,7 @@ namespace E_Market.Server.Services.Products
 
         public async Task<ProductResponse> UpdateProductById(Guid id, ProductRequest request)
         {
-            Product product = await _context.Products.Include(pr => pr.Category).FirstOrDefaultAsync(p => p.Id == id);
+            Product product = await _context.Products.Include(pr => pr.Category).Where(p => p.Id == id).FirstOrDefaultAsync();
             if (product == null)
             {
                 throw new Exception($"Product {id} not found.");

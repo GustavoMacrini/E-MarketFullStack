@@ -39,7 +39,7 @@ namespace E_Market.Server.Services.Categories
 
         public async Task<CategoryResponse> GetCategoryAsync(Guid id)
         {
-            Category category = await _context.Categories.FirstOrDefaultAsync(c => c.Id == id);
+            Category category = await _context.Categories.Where(c => c.Id == id).FirstOrDefaultAsync();
             if (category == null) 
             {
                 throw new Exception($"Category {id} not found.");
@@ -50,7 +50,7 @@ namespace E_Market.Server.Services.Categories
 
         public async Task DeleteCategory(Guid id)
         {
-            Category category = await _context.Categories.FirstOrDefaultAsync(c => c.Id == id);
+            Category category = await _context.Categories.Where(c => c.Id == id).FirstOrDefaultAsync();
 
             if(category == null)
             {
