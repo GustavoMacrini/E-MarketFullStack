@@ -11,6 +11,15 @@ services:
             - private-network
 
 
+    emarket-client:
+        build: 
+            context: ./E-Market.Client
+            dockerfile: Dockerfile
+        volumes:
+            - ./E-Market.Client:/app    
+
+
+
     db-sqlserver:
         networks:
             - private-network
@@ -22,6 +31,10 @@ services:
         container_name: db-sqlserver
         ports:
             - "1433:1433"
+    
+      
+
+
        
 
 networks:
