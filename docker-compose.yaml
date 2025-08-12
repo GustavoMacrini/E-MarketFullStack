@@ -13,10 +13,16 @@ services:
 
     emarket-client:
         build: 
-            context: ./E-Market.Client
+            context: ./E-Market-Client
             dockerfile: Dockerfile
         volumes:
-            - ./E-Market.Client:/app    
+            - ./E-Market-Client:/app   
+        ports:
+            - "55786:55786"
+        environment:
+            - NODE_ENV=development
+        networks:
+            - private-network 
 
 
 
