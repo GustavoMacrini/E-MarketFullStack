@@ -1,9 +1,20 @@
-FROM node:16
-WORKDIR /app
-COPY package.json ./
-COPY package-lock.json ./
-RUN npm install --include=optional
-RUN npm install -D vite
+FROM node:latest AS build
+WORKDIR /tmp/react
+
 COPY . .
-EXPOSE 55786
-CMD ["npm", "run", "dev"]
+
+RUN rm -rf node_modules
+
+RUN npm install
+
+RUN npm run build
+
+RUN mkdir -p /var/www/html
+
+RUN mv dist/* /var/www/html
+
+VOLUME /var/www/html
+
+WORKDIR /
+
+RUN rm -rf /tmp/react
