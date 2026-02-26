@@ -13,7 +13,6 @@
     padding: 0;
     margin: 0;
     background-color: rgba(0,0,0,0.624);
-
 }
 
 .modal {
@@ -31,19 +30,23 @@
     
     border: 1px solid lightgrey;
     border-radius: 1rem;
-    width: 60rem;
+    width: 80rem;
+    /*height: 40rem;*/
     padding-block: 2rem;
     background-color: white;
 }
 
 .product{
     display: flex;
-    flex-direction: row;
-    justify-content: space-between
+    flex-direction: row;    
+    align-content: end;
 }
 
-.image{
-    /*padding-bottom: 1.5rem;*/
+.imageWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 35%;
 }
 
 .heartIcon{
@@ -65,11 +68,27 @@
 
 }
 
+.closeButton {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: -1.5rem;
+    
+}
+
+.closeButtonIcon{
+    cursor: pointer;
+}
+
 .detailWrapper {
     display: flex;
     flex-direction: row;
     gap: 4rem;
     padding-inline: 2rem
+}
+
+.detail{
+    display: flex;
+    flex-direction: column;
 }
 
 .value {
@@ -78,19 +97,21 @@
     color: var(--primary-color);
     display: flex;
     justify-content: start;
-    padding-left: 1.5rem;
+    padding-left: 1rem;
 }
  
 .btn {
     font-size: 18px;
     font-family: sans-serif;
+    font-weight: 700;
     background-color: var(--primary-color);
     color: white;
     border: none;
     padding-block: 0.5rem;
-    padding-inline: 5.5rem;
     border-radius: 1rem;
     cursor: pointer;
+    width: 15rem;
+    margin-left: 1rem;
 }
 
 .btn:hover {
@@ -100,6 +121,7 @@
 
 
 .descriptionWrapper {
+    width: 40rem;
     border: 1px solid lightgrey;
     border-radius: 1rem;
     display: flex;
@@ -109,6 +131,7 @@
     padding-block: 1rem;
     margin-inline: 2rem;
     gap: 1rem;
+    text-align: justify;
 }
 
 .descriptionTitle {
@@ -116,4 +139,25 @@
     font-size: 20px;
     color: var(--primary-color);    
     margin: 0;
+    cursor: pointer;
+}
+
+.arrowWrapper{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.arrow{
+    color: var(--primary-color);
+    cursor: pointer;
+}
+
+.description {
+    font-family: sans-serif;
+    font-size: 15px;
+    display: flex;
+    justify-content: flex-start;
+    align-content: flex-start
 }

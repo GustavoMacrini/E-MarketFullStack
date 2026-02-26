@@ -7,12 +7,14 @@ function ProductCard({ openModal }) {
     let image = "https://d1pfez3jlrpp4u.cloudfront.net/imagem-ecommerce-barbosa/tiny-7bf39bb189f6abccfec278fd5053ac88-7896401100301.jpg";
 
     return (
-        <div className={style.wrapper}>
-            <img className={style.image} src={image}></img>     
-            <FaHeart color="lightgrey" size="2em" className={style.heartIcon} />
-            <h1 className={style.title}>{title}</h1>
+        <div className={style.wrapper}>            
+            <div className={style.heartIcon}>
+                <FaHeart color="lightgrey" size="2em" />
+            </div>
+            <img className={style.image} src={image} onClick={() => openModal()}></img>                           
+            <h1 className={style.title} onClick={() => openModal()}>{title}</h1>
             <h2 className={style.value}>{"R$ " + value}</h2>
-            <button onClick={() => openModal()} className={style.btn}>Comprar</button>
+            <button className={style.btn}>Comprar</button>
         </div>
     );
 }

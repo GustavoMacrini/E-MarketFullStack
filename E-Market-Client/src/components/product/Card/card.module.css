@@ -10,21 +10,25 @@
     padding-block: 1rem;
 }
 
-.image{
+.image {
     padding-bottom: 1.5rem;
+    cursor: pointer;
 }
 
 .heartIcon {
-    position: absolute;
-    left: 17.5rem;
-    cursor: pointer;
+   display: flex;
+   justify-content: flex-end;
+   margin-right: 1rem;
+   
+   cursor: pointer;
 }
 
 .title {
     font-size: 18px;
     font-family: sans-serif;
     padding-inline: 1rem;
-    text-align: start
+    text-align: start;
+    cursor: pointer;
 }
 
 .value {

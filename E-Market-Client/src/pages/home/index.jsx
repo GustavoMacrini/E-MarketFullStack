@@ -10,7 +10,7 @@ function Home() {
       <div>
           <h1>Home</h1>
           <ProductCard openModal={() => {setOpen(!open) } } />
-          <ProductOverviewModal isOpen={open} closeModal={() => setOpen(!open)} />
+          <ProductOverviewModal isOpen={open} closeModal={() => setOpen(!open) } />
 
       </div>
   );
