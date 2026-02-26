@@ -14,7 +14,7 @@
     padding-bottom: 1.5rem;
 }
 
-.heart-icon {
+.heartIcon {
     position: absolute;
     left: 17.5rem;
     cursor: pointer;
@@ -28,7 +28,7 @@
 }
 
 .value {
-    font-size: 18px bold;
+    font-size: 24px;
     font-family: sans-serif;
     color: var(--primary-color);
     display: flex;

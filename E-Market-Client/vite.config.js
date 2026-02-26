@@ -7,4 +7,7 @@ export default defineConfig({
     server: {
         port: 55786,
     },
+    esbuild: {
+        charset: 'utf8',
+    },
 })

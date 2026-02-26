@@ -1,12 +1,16 @@
-import ProductCard from "../../components/product/card/index";
-import ProductOverview from "../../components/product/overview/index";
+import { useState } from 'react';
+import ProductCard from "../../components/product/Card/index";
+import ProductOverviewModal from "../../components/product/OverviewModal/index";
+
 
 function Home() {
+  const [open, setOpen] = useState(false);
+
   return (
       <div>
           <h1>Home</h1>
-          <ProductCard/>
-          <ProductOverview/>
+          <ProductCard openModal={() => {setOpen(!open) } } />
+          <ProductOverviewModal isOpen={open} closeModal={() => setOpen(!open)} />
 
       </div>
   );

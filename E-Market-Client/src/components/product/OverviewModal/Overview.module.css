@@ -1,0 +1,119 @@
+:root {
+    --primary-color: #0831A3;
+    --secondary-color: #072C92;
+
+}
+
+.background{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0;
+    margin: 0;
+    background-color: rgba(0,0,0,0.624);
+
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.wrapper {
+    
+    border: 1px solid lightgrey;
+    border-radius: 1rem;
+    width: 60rem;
+    padding-block: 2rem;
+    background-color: white;
+}
+
+.product{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between
+}
+
+.image{
+    /*padding-bottom: 1.5rem;*/
+}
+
+.heartIcon{
+    margin-top:1rem;
+    cursor: pointer;
+}
+
+.title {
+    font-size: 24px;
+    font-family: sans-serif;
+    padding-inline: 1rem;
+    text-align: start
+}
+
+.detailDescriptionWrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+}
+
+.detailWrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 4rem;
+    padding-inline: 2rem
+}
+
+.value {
+    font-size: 24px;
+    font-family: sans-serif;
+    color: var(--primary-color);
+    display: flex;
+    justify-content: start;
+    padding-left: 1.5rem;
+}
+ 
+.btn {
+    font-size: 18px;
+    font-family: sans-serif;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding-block: 0.5rem;
+    padding-inline: 5.5rem;
+    border-radius: 1rem;
+    cursor: pointer;
+}
+
+.btn:hover {
+    transition: background-color 0.3s ease, color 0.3s ease;
+    background-color: var(--secondary-color);
+}
+
+
+.descriptionWrapper {
+    border: 1px solid lightgrey;
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-inline: 2rem;
+    padding-block: 1rem;
+    margin-inline: 2rem;
+    gap: 1rem;
+}
+
+.descriptionTitle {
+    font-family: sans-serif;
+    font-size: 20px;
+    color: var(--primary-color);    
+    margin: 0;
+}
