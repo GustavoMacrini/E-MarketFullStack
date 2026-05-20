@@ -4,13 +4,14 @@ import ProductOverviewModal from "../../components/product/OverviewModal/index";
 
 
 function Home() {
-  const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(false);
+    //const [title, setTitle] = useState();
 
   return (
       <div>
           <h1>Home</h1>
-          <ProductCard openModal={() => {setOpen(!open) } } />
-          <ProductOverviewModal isOpen={open} closeModal={() => setOpen(!open) } />
+          <ProductCard openModal={() => { setOpen(!open) } } />
+          {/*<ProductOverviewModal isOpen={open} closeModal={() => setOpen(!open) } />*/}
 
       </div>
   );

@@ -1,14 +1,34 @@
 ﻿
+import { useEffect, useRef, useState } from 'react';
+import PcStyle from './PcOverview.module.css';
+import MobileStyle from './MobileOverview.module.css';
 import { FaHeart } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
 import { IoIosArrowUp } from "react-icons/io";
 import { IoIosArrowDown } from "react-icons/io";
-import style from './Overview.module.css';
-import { useEffect, useRef, useState } from 'react';
 
-function Description() {   
-    let description = "teste de descrição feijão teste de descrição feijão teste de descrição feijão teste de descrição feijão teste de descrição feijão teste de descrição feijão teste de descrição feijão teste de descrição feijão teste de descrição feijão teste de descrição feijão teste de descrição feijão teste de descrição feijão teste de descrição feijão teste de descrição feijão teste de descrição feijão teste de descrição feijão teste de descrição feijão teste de descrição feijão teste de descrição feijão teste de descrição feijão teste de descrição feijão teste de descrição feijão teste de descrição feijão teste de descrição feijão teste de descrição feijão teste de descrição feijão teste de descrição feijão teste de descrição feijão teste de descrição feijão teste de descrição feijão teste de descrição feijão teste de descrição feijão ";
-    const [open, setOpen] = useState(true);
+//configurar css pc ou mobile
+let style = null;
+let usingPc = null;
+const mediaQuery = window.matchMedia('(min-width: 768px)');
+function handleTabletChange(e) {
+    if (e.matches) {
+        style = PcStyle;
+        usingPc = true;
+    } else {
+        style = MobileStyle;
+        usingPc = false;
+    }
+}
+// Escutar mudanças
+mediaQuery.addEventListener('change', handleTabletChange);
+// Chamar a função imediatamente para configurar o estado inicial
+handleTabletChange(mediaQuery);
+
+
+function Description({ description }) {   
+    
+    const [open, setOpen] = useState(usingPc);
 
     return (
         <div className={style.descriptionWrapper}>
@@ -19,17 +39,12 @@ function Description() {
                 
             </div>
 
-            <div className={style.description}>{open ? description : null}</div>
+            <div className={open ? style.description : null}>{open ? description : null}</div>
         </div>        
     );
 }
 
-function ProductOverviewModal({ isOpen, closeModal }) {
-
-    let title = "Feijão Carioca Barbosa Tipo 1 | 1kg";
-    let value = "7,49";
-    let image = "https://d1pfez3jlrpp4u.cloudfront.net/imagem-ecommerce-barbosa/tiny-7bf39bb189f6abccfec278fd5053ac88-7896401100301.jpg";
-
+function ProductOverviewModal({ isOpen, closeModal, title, value, image, description }) {    
 
     // Hook para detectar cliques fora do modal
     const useOutsideClick = (ref, callback) => {
@@ -56,33 +71,35 @@ function ProductOverviewModal({ isOpen, closeModal }) {
             <div className={style.modal}>
                 <div ref={modalRef} className={style.wrapper}>
                     <div className={style.product}>                            
-                        <div className={style.imageWrapper}>
-                            <img className={style.image} src={image}></img>
-                        </div>
+                        <div className={style.closeButtonWrapper}>
+                            <div className={style.closeButton}>
+                                <IoMdClose size="2em" className={style.closeButtonIcon} onClick={() => closeModal()} />
+                            </div>
 
-
-                        <div className={style.detailDescriptionWrapper}>
-                            
-                            <div className={style.closeButtonWrapper}>
-                                <div className={style.closeButton}>
-                                    <IoMdClose size="2em" className={style.closeButtonIcon} onClick={() => closeModal()} />
+                            <div className={style.productWrapper}>
+                                <div className={style.imageWrapper}>
+                                    <img className={style.image} src={image}></img>
                                 </div>
-                                <div className={style.detailWrapper}>
 
-                                    <div className={style.detail}>
-                                        <h1 className={style.title}>{title}</h1>
-                                        <h2 className={style.value}>{"R$ " + value}</h2>
-                                        <button className={style.btn}>Comprar</button>
+                                <div className={style.detailDescriptionWrapper}>
+                                    <div className={style.detailWrapper}>
+
+                                        <div className={style.detail}>
+
+                                            <div className={style.titleWrapper}>
+                                                <h1 className={style.title}>{title}</h1>
+                                                <FaHeart color="lightgrey" size="2em" className={style.heartIcon} />
+                                            </div>
+
+                                            <h2 className={style.value}>{"R$ " + value}</h2>                                            
+                                            <button className={style.btn}>Comprar</button>
+                                            
+                                        </div>
                                     </div>
-
-                                    <FaHeart color="lightgrey" size="2em" className={style.heartIcon} />
-
+                                    <Description description={description} />
                                 </div>
                             </div>
-                            
-                            <Description />
                         </div>
-
                     </div>
                 </div>
             </div>
