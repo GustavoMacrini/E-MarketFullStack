@@ -1,16 +1,15 @@
-import { useState } from 'react';
-import ProductCard from "../../components/product/Card/index";
-import ProductOverviewModal from "../../components/product/OverviewModal/index";
+import ProductCarousel from "../../components/product/Carousel/index";
 
 
 function Home() {
-    const [open, setOpen] = useState(false);
+    
     //const [title, setTitle] = useState();
 
   return (
       <div>
           <h1>Home</h1>
-          <ProductCard openModal={() => { setOpen(!open) } } />
+          
+          <ProductCarousel />
           {/*<ProductOverviewModal isOpen={open} closeModal={() => setOpen(!open) } />*/}
 
       </div>
