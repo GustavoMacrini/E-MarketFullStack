@@ -26,13 +26,14 @@ namespace E_Market.Server.Services.Products
             await _context.Products.AddAsync(product);
             await _context.SaveChangesAsync();
 
-            return new ProductResponse(product.Id, product.Name, product.Category.Id, product.Description, product.Price);
+            CategoryResponse categoryResponse = new CategoryResponse(product.Category.Id, product.Category.Name);
+            return new ProductResponse(product.Id, product.Name, categoryResponse, product.Description, product.Price);
         }
 
         public async Task<List<ProductResponse>> GetAllProductsAsync()
         {
             var products = await _context.Products.Include(p => p.Category).ToListAsync(); 
-            List<ProductResponse> response = products.Select(p => new ProductResponse(p.Id, p.Name, p.Category.Id, p.Description, p.Price)).ToList();
+            List<ProductResponse> response = products.Select(p => new ProductResponse(p.Id, p.Name, new CategoryResponse(p.Category.Id, p.Category.Name), p.Description, p.Price)).ToList();
             return response;
         }
 
@@ -44,7 +45,8 @@ namespace E_Market.Server.Services.Products
                 throw new Exception($"Product {id} not found.");
             }
 
-            return new ProductResponse(product.Id, product.Name, product.Category.Id, product.Description, product.Price);
+            CategoryResponse categoryResponse = new CategoryResponse(product.Category.Id, product.Category.Name);
+            return new ProductResponse(product.Id, product.Name, categoryResponse, product.Description, product.Price);
         }
 
         public async Task<ProductResponse> UpdateProductById(Guid id, ProductRequest request)
@@ -64,7 +66,8 @@ namespace E_Market.Server.Services.Products
             product.EditValues(request.Name, category, request.Description, request.Price, "editedBy");
             await _context.SaveChangesAsync();
 
-            return new ProductResponse(product.Id, product.Name, product.Category.Id, product.Description, product.Price);
+            CategoryResponse categoryResponse = new CategoryResponse(product.Category.Id, product.Category.Name);
+            return new ProductResponse(product.Id, product.Name, categoryResponse, product.Description, product.Price);
         }
 
 

@@ -1,4 +1,6 @@
-﻿namespace E_Market.Server.Domain.Products
+﻿using E_Market.Server.Domain.Categories;
+
+namespace E_Market.Server.Domain.Products
 {
-    public record ProductResponse(Guid Id, string Name, Guid CategoryId, string Description, decimal Price);
+    public record ProductResponse(Guid Id, string Name, CategoryResponse Category, string Description, decimal Price);
 }

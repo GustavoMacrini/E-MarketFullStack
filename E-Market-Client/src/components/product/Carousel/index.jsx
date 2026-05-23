@@ -1,25 +1,41 @@
 import { useState } from 'react';
+import PcStyle from './PcCarousel.module.css';
+import MobileStyle from './MobileCarousel.module.css';
 import ProductOverviewModal from '../OverviewModal/index';
 import ProductCard from '../Card/index';
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 
-function ProductCarousel() {
-    
-    const [open, setOpen] = useState(false);
-    const [title, setTitle] = useState(false);
-    const [value, setValue] = useState(false);
-    const [image, setImage] = useState(false);
-    const [description, setDescription] = useState(false);
+//configurar css pc ou mobile
+let style = null;
+const mediaQuery = window.matchMedia('(min-width: 768px)');
+function handleTabletChange(e) {
+    if (e.matches) {
+        style = PcStyle;
+    } else {
+        style = MobileStyle;
+    }
+}
+// Escutar mudanças
+mediaQuery.addEventListener('change', handleTabletChange);
+// Chamar a função imediatamente para configurar o estado inicial
+handleTabletChange(mediaQuery);
 
-    function openOverViewModal({ title, value, image, description }) {     
+function ProductCarousel({ data }) {     
+    const { title, products } = data;
+    const [open, setOpen] = useState(false);
+    const [productTitle, setTitle] = useState("");
+    const [price, setPrice] = useState("");
+    const [image, setImage] = useState("");
+    const [description, setDescription] = useState("");
+    function openOverViewModal({ productTitle, price, image, description }) {     
         setOpen(true);
-        setTitle(title);
-        setValue(value);
+        setTitle(productTitle);
+        setPrice(price);
         setImage(image);
         setDescription(description);
     }
-
+    
     const responsive = {
         superLargeDesktop: {
             breakpoint: { max: 4000, min: 3000 },
@@ -39,33 +55,39 @@ function ProductCarousel() {
         },
         mobile: {
             breakpoint: { max: 700, min: 0 },
-            items: 1
+            items: 2
         }
     };    
 
-
     return(<div>
-         
+        <div className={style.titleWrapper}>
+            <h1 className={style.title}>{title}</h1>
+            <button className={style.btn}>ver mais</button>
+        </div>
         <Carousel responsive={responsive}
-            infinite={true}            
-            swipeable={false}
+            removeArrowOnDeviceType={["tablet", "mobile"]}
+            infinite={true}                        
             draggable={false}>        
 
-            <ProductCard openModal={(e) => { openOverViewModal(e) }} />
-            <ProductCard openModal={(e) => { openOverViewModal(e) }} />
-            <ProductCard openModal={(e) => { openOverViewModal(e) }} />
-            <ProductCard openModal={(e) => { openOverViewModal(e) }} />
-            <ProductCard openModal={(e) => { openOverViewModal(e) }} />
-            <ProductCard openModal={(e) => { openOverViewModal(e) }} />
-            <ProductCard openModal={(e) => { openOverViewModal(e) }} />
-            <ProductCard openModal={(e) => { openOverViewModal(e) }} />
-            <ProductCard openModal={(e) => { openOverViewModal(e) }} />
-            <ProductCard openModal={(e) => { openOverViewModal(e) }} />
-            <ProductCard openModal={(e) => { openOverViewModal(e) }} />
-            <ProductCard openModal={(e) => { openOverViewModal(e) }} />
+            {
+                products.map((product) => (
+                    <ProductCard
+                        key={product.id}
+                        openModal={openOverViewModal}
+                        productTitle={product.name}
+                        price={product.price}                        
+                        description={product.description}/>                        
+                ))
+            }
 
         </Carousel>
-        <ProductOverviewModal isOpen={open} closeModal={() => setOpen(!open)} title={title} value={value} image={image} description={description} />
+        <ProductOverviewModal
+            isOpen={open}
+            closeModal={() => setOpen(!open)}
+            title={productTitle}
+            price={price}
+            image={image}
+            description={description} />
         </div>
     );
 }

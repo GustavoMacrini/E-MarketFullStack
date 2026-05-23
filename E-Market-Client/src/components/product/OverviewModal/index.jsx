@@ -44,8 +44,8 @@ function Description({ description }) {
     );
 }
 
-function ProductOverviewModal({ isOpen, closeModal, title, value, image, description }) {    
-
+function ProductOverviewModal({ isOpen, closeModal, title, price, image, description }) {    
+    
     // Hook para detectar cliques fora do modal
     const useOutsideClick = (ref, callback) => {
         useEffect(() => {
@@ -91,7 +91,7 @@ function ProductOverviewModal({ isOpen, closeModal, title, value, image, descrip
                                                 <FaHeart color="lightgrey" size="2em" className={style.heartIcon} />
                                             </div>
 
-                                            <h2 className={style.value}>{"R$ " + value}</h2>                                            
+                                            <h2 className={style.value}>{"R$ " + price}</h2>                                            
                                             <button className={style.btn}>Comprar</button>
                                             
                                         </div>

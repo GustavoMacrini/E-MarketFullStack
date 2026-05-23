@@ -3,11 +3,11 @@
     --secondary-color: #072C92;
 }
 
-.wrapper {
-    border: 1px solid lightgrey;
+.wrapper {   
     border-radius: 1rem;
     width: 18rem;
     padding-block: 1rem;
+    background-color: white;
 }
 
 .image {
@@ -18,17 +18,34 @@
 .heartIcon {
    display: flex;
    justify-content: flex-end;
-   margin-right: 1rem;
-   
+   margin-right: 1rem;   
    cursor: pointer;
+}
+
+.plusIconWrapper {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 1rem;
+    margin-top: -4rem;
+    cursor: pointer;
+}
+
+.plusIcon:hover {
+    transition: background-color 0.3s ease, color 0.3s ease;
+    color: var(--secondary-color) !important;
+}
+
+.titleWrapepr {
+    padding-inline: 1rem;
+    
 }
 
 .title {
     font-size: 18px;
-    font-family: sans-serif;
-    padding-inline: 1rem;
+    font-family: sans-serif;    
     text-align: start;
     cursor: pointer;
+    overflow: hidden;
 }
 
 .value {
@@ -38,22 +55,4 @@
     display: flex;
     justify-content: start;
     padding-left: 1.5rem;
-}
-
-.btn {
-    font-size: 18px;
-    font-family: sans-serif;
-    font-weight: 700;
-    background-color: var(--primary-color);
-    color: white;
-    border: none;
-    padding-block: 0.5rem;
-    padding-inline: 5.5rem;
-    border-radius: 1rem;
-    cursor: pointer;
-}
-
-.btn:hover {
-    transition: background-color 0.3s ease, color 0.3s ease;
-    background-color: var(--secondary-color);
 }
